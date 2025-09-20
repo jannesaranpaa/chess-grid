@@ -2,7 +2,7 @@
 
 _Chess-grid is a simple tool/game for memorizing the chess grid._
 
-![Chess-grid screenshot][docs/chess-grid.png]
+![Chess-grid screenshot](docs/chess-grid.png)
 
 _Check out chess-grid at [chess.jssa.fi](https://chess.jssa.fi)_
 
