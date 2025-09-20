@@ -30,15 +30,21 @@ type GameStatus
     = Pending
     | Running
 
+type Side
+    = White
+    | Black
+
 type alias Options =
     { showCoordinates : Bool
     , showLabels : Bool
+    , side : Side
     }
 
 initOptions : Options
 initOptions =
     { showCoordinates = False
     , showLabels = True
+    , side = White
     }
 
 type alias Model =
@@ -96,6 +102,7 @@ type Msg
     | CloseOptions
     | OpenOptions
     | Tick Time.Posix
+    | SetSide Side
     | NoOp
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -153,6 +160,13 @@ update msg model =
 
         Tick newTime ->
             ( { model | time = newTime }, Cmd.none )
+
+        SetSide side ->
+            let
+                opts = model.options
+                newOptions = { opts | side = side }
+            in
+            ( { model | options = newOptions }, Cmd.none )
 
         NoOp ->
             ( model, Cmd.none )
