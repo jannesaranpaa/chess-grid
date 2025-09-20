@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "elm make src/Main.elm --output=public/elm.js",
+    "watch": "chokidar 'src/**/*.elm' -c 'npm run build'",
+    "serve": "cd public && http-server -c-1"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "elm": "^0.19.1-6",
+    "http-server": "^14.1.1"
+  }
+}

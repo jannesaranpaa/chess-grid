@@ -1,0 +1,438 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  outline: none;
+  /* we'll add a custom focus below */
+  appearance: none;
+  -webkit-appearance: none;
+  /* Safari */
+  -moz-appearance: none;
+  /* Firefox */
+}
+
+button {
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+
+  background-color: #111;
+  color: #ddd;
+
+  width: 100vw;
+  max-width: 40rem;
+
+  height: 100vw;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+
+  @media (width < 800px) {
+    padding: 1rem;
+  }
+
+  @media (width < 600px) {
+    padding: 0rem;
+  }
+
+}
+
+.App {
+  background-color: #151515;
+  border-radius: 6px;
+
+  padding: 1rem;
+
+  @media (width < 800px) {
+    padding: 1rem;
+  }
+
+  @media (width < 600px) {
+    padding: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  height: 100vh;
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+
+  gap: 0.25rem;
+
+  @media (width < 600px) {
+    gap: 0;
+  }
+}
+
+.Grid .Row {
+  display: contents;
+}
+
+.Grid .Cell {
+
+  aspect-ratio: 1 / 1;
+
+  background-color: #181818;
+  color: #454545;
+  border-radius: 2px;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #ffffff00;
+
+  transition: border 400ms ease-out;
+
+  &:hover {
+    border: 2px solid #68688a;
+  }
+
+  user-select: none;
+  cursor: pointer;
+}
+
+.Cell .label {
+  user-select: none;
+}
+
+.Cell .coordinate {
+  grid-column: 2;
+  grid-row: 2;
+  place-self: center;
+
+  opacity: 0;
+
+  transition: opacity 600ms ease-out;
+
+  user-select: none;
+}
+
+.Cell .coordinate.visible,
+.Cell:active .coordinate {
+  opacity: 1;
+  transition: all 0ms ease-in;
+}
+
+.Cell._8 .label.row {
+  grid-column: 2;
+  grid-row: 1;
+  place-self: center;
+}
+
+.Cell._1 .label.row {
+  grid-column: 2;
+  grid-row: 3;
+  place-self: center;
+}
+
+.Cell.a .label.col {
+  grid-column: 1;
+  grid-row: 2;
+  place-self: center;
+}
+
+.Cell.h .label.col {
+  grid-column: 3;
+  grid-row: 2;
+  place-self: center;
+}
+
+.Cell .label {
+  font-size: smaller;
+}
+
+
+.Grid .Row:nth-child(odd) .Cell:nth-child(odd),
+.Grid .Row:nth-child(even) .Cell:nth-child(even) {
+  background-color: #282828;
+  color: #686868;
+}
+
+.Controls {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+
+  gap: 1rem;
+
+  &>* {
+    padding: 1rem;
+
+    background-color: #181818;
+    color: #aaaaaa;
+
+    border-radius: 2px;
+  }
+
+  @media (width < 600px) {
+    padding: 1rem;
+  }
+
+  padding-bottom: 0;
+}
+
+.Controls .time {
+  text-align: center;
+}
+
+.Controls .moves {
+  text-align: center;
+}
+
+.Controls .target {
+  grid-column: 1 / 4;
+
+  background-color: #222233;
+  color: #aaaaff;
+
+  text-align: center;
+  font-size: 200%;
+
+}
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Remove excess padding and border in Firefox 4+ */
+&::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+button.green {
+  background-color: #336633;
+  color: #99dd99;
+}
+
+button.red {
+  background-color: #dd9999;
+}
+
+
+.Options {
+  display: flex;
+  flex-direction: column;
+
+  background-color: #151515;
+
+  gap: 1rem;
+  padding: 1rem;
+
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 60vh;
+
+  transition: all 400ms;
+}
+
+.Options.closed {
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.Toggle {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.Toggle input {
+  border: 2px solid #353535;
+  border-radius: 1rem;
+
+  background-color: #252525;
+
+  width: 2rem;
+  height: 1rem;
+
+
+  &::after {
+    background-color: #555;
+    width: calc(1rem - 4px);
+    height: calc(1rem - 4px);
+
+    display: block;
+    border-radius: 1rem;
+
+    content: " ";
+
+    transition: all 200ms;
+  }
+
+  &:checked::after {
+    background-color: #336633;
+    transform: translateX(1rem);
+  }
+}
+
+.Options .title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.Display {
+  background-color: #543128;
+  color: #cf765d;
+
+  font-family: "Roboto Mono", monospace;
+  font-size: 80%;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  border-radius: 4px;
+
+  padding: 0.5rem 1rem 0.5rem 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  gap: 0.5rem;
+
+  &>* {
+    place-content: center;
+  }
+
+  .settings {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .status {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .last {
+    grid-row: 1 / 3;
+    grid-column: 2;
+
+    font-size: large;
+    font-weight: bold;
+
+    text-align: center;
+  }
+
+  .current {
+    grid-row: 1 / 3;
+    grid-column: 3;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    text-align: center;
+  }
+
+  .next {
+    grid-row: 1 / 3;
+    grid-column: 4;
+
+    font-size: large;
+    font-weight: bold;
+
+    text-align: center;
+  }
+
+  .time {
+    grid-row: 1;
+    grid-column: 5;
+
+    text-align: end;
+  }
+
+  .moves {
+    grid-row: 2;
+    grid-column: 5;
+
+    text-align: end;
+
+  }
+}
+
+input.save {
+  max-width: 10rem;
+  display: inline-block;
+  background-color: #252525;
+
+  place-self: center;
+
+  padding: 1rem;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
