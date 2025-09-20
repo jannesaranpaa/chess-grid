@@ -281,22 +281,36 @@ viewOptions open options =
     else
         Html.div
             [ Attr.class "Options open" ]
-            [ Html.div [ Attr.class "title" ]
-                [ Html.h3 [ Events.onClick CloseOptions ] [ Html.text "Options" ]
-                , Html.button
-                    [ Events.onClick CloseOptions ]
-                    [ Filled.close 16 Inherit]
-                ]
-            , viewToggle "Show coordinates" options.showCoordinates SetShowCoordinates
-            , viewToggle "Show labels" options.showLabels SetShowLabels
-            , Html.input
-                [ Attr.type_ "button"
-                , Attr.value "Save"
-                , Events.onClick CloseOptions
-                , Attr.class "button save"
-                ]
-                []
+                [ Html.div [ Attr.class "options" ]
+                    [ Html.div [ Attr.class "title" ]
+                        [ Html.h3 [ Events.onClick CloseOptions ]
+                            [ Html.text "Options" ]
+                        , Html.button
+                            [ Events.onClick CloseOptions ]
+                            [ Filled.close 16 Inherit]
+                        ]
+                , viewToggle "Show coordinates" options.showCoordinates SetShowCoordinates
+                , viewToggle "Show labels" options.showLabels SetShowLabels
+                , Html.input
+                    [ Attr.type_ "button"
+                    , Attr.value "Save"
+                    , Events.onClick CloseOptions
+                    , Attr.class "button save"
+                    ]
+                    []
+
+                    ]
+
+                , Html.div [ Attr.class "about" ]
+                    [ Html.a [ Attr.href "https://github.com/jannesaranpaa/chess-grid" ]
+                        [ Html.img [ Attr.src "res/github-mark-white.png", Attr.class "icon", Attr.height 16, Attr.width 16 ]
+                            []
+                        , Html.text " Check out chess-grid on github"
+                        ]
+                    , Html.p [ Attr.class "copyright" ] [ Html.text "Janne Saranpää © 2025"]
+                    ]
             ]
+
 
 viewToggle : String -> Bool -> (Bool -> msg) -> Html.Html msg
 viewToggle label value toMsg =
