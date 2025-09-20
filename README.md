@@ -2,6 +2,10 @@
 
 _Chess-grid is a simple tool/game for memorizing the chess grid._
 
+![Chess-grid screenshot][docs/chess-grid.png]
+
+_Check out chess-grid at [chess.jssa.fi](https://chess.jssa.fi)_
+
 Imagine that you are studying a grandmaster chess game printed in a book. You
 have a board in front of you, pieces laid out and you religiously re-enact every
 move. Then the book shows you a picture of the game at a defining moment, and it
