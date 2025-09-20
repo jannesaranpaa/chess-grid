@@ -256,22 +256,34 @@ viewRow rowId options =
 viewCell : Int -> Int -> Options -> Html.Html Msg
 viewCell rowId colId options =
     let
-        value = (numToLetter colId ++ "" ++ String.fromInt (9 - rowId))
+        number =
+            if options.side == White then
+                String.fromInt (9 - rowId)
+            else
+                String.fromInt rowId
+
+        letter =
+            if options.side == White then
+                numToLetter colId
+            else
+                numToLetter (9 - colId)
+
+        value = letter ++ number
 
         rowLabel =
             if rowId == 1 || rowId == 8 then
-                (numToLetter colId)
+                letter
             else
                 ""
 
         colLabel =
             if colId == 1 || colId == 8 then
-                (String.fromInt (9 - rowId))
+                number
             else
                 ""
     in
     Html.div
-        [ Attr.class ("Cell _" ++ (String.fromInt (9 - rowId)) ++ " " ++ (numToLetter colId))
+        [ Attr.class ("Cell _" ++ number ++ " " ++ letter ++ " side-" ++ (if options.side == White then "white" else "black"))
         , Attr.tabindex 0
         , Events.onClick (ClickCell value)
         ]
