@@ -165,10 +165,18 @@ body {
   place-self: center;
 }
 
+.Cell.side-black._8 .label.row {
+  grid-row: 3;
+}
+
 .Cell._1 .label.row {
   grid-column: 2;
   grid-row: 3;
   place-self: center;
+}
+
+.Cell.side-black._1 .label.row {
+  grid-row: 1;
 }
 
 .Cell.a .label.col {
@@ -177,10 +185,18 @@ body {
   place-self: center;
 }
 
+.Cell.side-black.a .label.col {
+  grid-column: 3;
+}
+
 .Cell.h .label.col {
   grid-column: 3;
   grid-row: 2;
   place-self: center;
+}
+
+.Cell.side-black.h .label.col {
+  grid-column: 1;
 }
 
 .Cell .label {

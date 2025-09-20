@@ -30,15 +30,21 @@ type GameStatus
     = Pending
     | Running
 
+type Side
+    = White
+    | Black
+
 type alias Options =
     { showCoordinates : Bool
     , showLabels : Bool
+    , side : Side
     }
 
 initOptions : Options
 initOptions =
     { showCoordinates = False
     , showLabels = True
+    , side = White
     }
 
 type alias Model =
@@ -96,6 +102,7 @@ type Msg
     | CloseOptions
     | OpenOptions
     | Tick Time.Posix
+    | SetSide Side
     | NoOp
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -153,6 +160,13 @@ update msg model =
 
         Tick newTime ->
             ( { model | time = newTime }, Cmd.none )
+
+        SetSide side ->
+            let
+                opts = model.options
+                newOptions = { opts | side = side }
+            in
+            ( { model | options = newOptions }, Cmd.none )
 
         NoOp ->
             ( model, Cmd.none )
@@ -242,22 +256,34 @@ viewRow rowId options =
 viewCell : Int -> Int -> Options -> Html.Html Msg
 viewCell rowId colId options =
     let
-        value = (numToLetter colId ++ "" ++ String.fromInt (9 - rowId))
+        number =
+            if options.side == White then
+                String.fromInt (9 - rowId)
+            else
+                String.fromInt rowId
+
+        letter =
+            if options.side == White then
+                numToLetter colId
+            else
+                numToLetter (9 - colId)
+
+        value = letter ++ number
 
         rowLabel =
             if rowId == 1 || rowId == 8 then
-                (numToLetter colId)
+                letter
             else
                 ""
 
         colLabel =
             if colId == 1 || colId == 8 then
-                (String.fromInt (9 - rowId))
+                number
             else
                 ""
     in
     Html.div
-        [ Attr.class ("Cell _" ++ (String.fromInt (9 - rowId)) ++ " " ++ (numToLetter colId))
+        [ Attr.class ("Cell _" ++ number ++ " " ++ letter ++ " side-" ++ (if options.side == White then "white" else "black"))
         , Attr.tabindex 0
         , Events.onClick (ClickCell value)
         ]
@@ -291,6 +317,7 @@ viewOptions open options =
                         ]
                 , viewToggle "Show coordinates" options.showCoordinates SetShowCoordinates
                 , viewToggle "Show labels" options.showLabels SetShowLabels
+                , viewToggle "Play as white" (options.side == White) (\x -> SetSide (if x == True then White else Black))
                 , Html.input
                     [ Attr.type_ "button"
                     , Attr.value "Save"
