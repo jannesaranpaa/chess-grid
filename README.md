@@ -32,17 +32,17 @@ and that's pretty much the only outside dependency.
 
 ## Possible future features
 
-- Other game modes
-  - Current _click until you miss or get bored_
-  - Time-trial: how many squares can you get in a minute / some other time
-  - Reverse: write out the coordinate of a highlighted square
-  - Actual chess notation: you are given a move in algebraic notation, you have
-    to play it on the board
-  - Reverse notation: you are shown a move on the board, you have to write it in
-    notation.
-- Ability to reverse the grid to the POV of the black side
-- Add a shareable results screen at the end of a game
-- Add a leaderboard (and users)
+- [ ] Other game modes
+  - [ ] Current _click until you miss or get bored_
+  - [ ] Time-trial: how many squares can you get in a minute / some other time
+  - [ ] Reverse: write out the coordinate of a highlighted square
+  - [ ] Actual chess notation: you are given a move in algebraic notation, you
+        have to play it on the board
+  - [ ] Reverse notation: you are shown a move on the board, you have to write
+        it in notation.
+- [x] Ability to reverse the grid to the POV of the black side
+- [ ] Add a shareable results screen at the end of a game
+- [ ] Add a leaderboard (and users)
 
 Not promising anything, but I might need to procrastinate on something and maybe
 implement some of these. You are very much free to contribute by opening issues
