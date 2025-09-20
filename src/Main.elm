@@ -317,6 +317,7 @@ viewOptions open options =
                         ]
                 , viewToggle "Show coordinates" options.showCoordinates SetShowCoordinates
                 , viewToggle "Show labels" options.showLabels SetShowLabels
+                , viewToggle "Play as white" (options.side == White) (\x -> SetSide (if x == True then White else Black))
                 , Html.input
                     [ Attr.type_ "button"
                     , Attr.value "Save"
